@@ -24,12 +24,36 @@ const Button = ({text, eventHandler}) => {
 }
 
 const Statistics = ({good, neutral, bad}) => {
+  const count = good + neutral + bad
+  const positives = good / count * 100
+  if (count > 0) {
+    return (
+      <table>
+        <tbody>
+          <StatisticLine text='Good' value={good} />
+          <StatisticLine text='Neutral' value={neutral} />
+          <StatisticLine text='Bad' value={bad} />
+          <StatisticLine text='all' value={count} />
+          <StatisticLine text='average' value={(good * 1 + bad * -1) / count} />
+          <StatisticLine text='positive' value={positives.toString() + '%'} />
+        </tbody>
+      </table>
+    )
+  }
   return (
     <div>
-      Good {good}
-      Neutral {neutral}
-      Bad {bad}
+      No feedback given
     </div>
+  )
+}
+
+const StatisticLine = ({text, value}) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+      
   )
 }
 
